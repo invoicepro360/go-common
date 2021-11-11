@@ -11,8 +11,8 @@ import (
 	"github.com/invoicepro360/go-common/templates"
 )
 
-// failedResponse provides response for failed requests incase of errors
-func failedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, errorMessage string) {
+// FailedResponse provides response for failed requests incase of errors
+func FailedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, errorMessage string) {
 
 	var badResponse templates.BadResponse
 	badResponse.Status = httpStatus
@@ -28,8 +28,8 @@ func failedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, mess
 
 }
 
-// successResponse provides response for successful requests
-func successResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, data interface{}) {
+// SuccessResponse provides response for successful requests
+func SuccessResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, data interface{}) {
 
 	var goodResponse templates.GoodResponse
 	goodResponse.Status = httpStatus
@@ -48,7 +48,7 @@ func successResponse(r *http.Request, w http.ResponseWriter, httpStatus int, mes
 // NoRouteFoundHandler handles cases where an undefined routes are requested
 func NoRouteFoundHandler(w http.ResponseWriter, r *http.Request) {
 	errorMessage := fmt.Sprintf("Invalid endpoint request (%v)", r.URL.Path)
-	failedResponse(r, w, http.StatusNotFound, "", errorMessage)
+	FailedResponse(r, w, http.StatusNotFound, "", errorMessage)
 }
 
 // HealthCheckHandler handles /healthcheck route
