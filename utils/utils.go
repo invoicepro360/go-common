@@ -13,34 +13,36 @@ import (
 
 // failedResponse provides response for failed requests incase of errors
 func failedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, errorMessage string) {
-	// set headers
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(httpStatus)
 
 	var badResponse templates.BadResponse
 	badResponse.Status = httpStatus
 	badResponse.Message = message
 	badResponse.Error = errorMessage
 
+	// set headers
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(httpStatus)
+
 	// write response
 	json.NewEncoder(w).Encode(badResponse)
-	return
+
 }
 
 // successResponse provides response for successful requests
 func successResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, data interface{}) {
-	// set headers
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(httpStatus)
 
 	var goodResponse templates.GoodResponse
 	goodResponse.Status = httpStatus
 	goodResponse.Message = message
 	goodResponse.Data = data
 
+	// set headers
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(httpStatus)
+
 	// write response
 	json.NewEncoder(w).Encode(goodResponse)
-	return
+
 }
 
 // NoRouteFoundHandler handles cases where an undefined routes are requested
