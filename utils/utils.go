@@ -12,12 +12,22 @@ import (
 )
 
 // FailedResponse provides response for failed requests incase of errors
-func FailedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, errorMessage string) {
+func FailedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, errorMessage interface{}) {
 
 	var badResponse templates.BadResponse
 	badResponse.Status = httpStatus
 	badResponse.Message = message
-	badResponse.Error = errorMessage
+
+	switch t := errorMessage.(type) {
+	case string:
+
+		badResponse.Error = t
+		badResponse.ValidationErrors = nil
+
+	default:
+		badResponse.Error = ""
+		badResponse.ValidationErrors = errorMessage
+	}
 
 	// set headers
 	w.Header().Set("Content-Type", "application/json")

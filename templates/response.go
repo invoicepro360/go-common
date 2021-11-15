@@ -9,9 +9,10 @@ type HealthCheckItem struct {
 
 // BadResponse stores invalid response data
 type BadResponse struct {
-	Status  int    `json:"status"`
-	Message string `json:"message"`
-	Error   string `json:"error"`
+	Status           int         `json:"status"`
+	Message          string      `json:"message"`
+	Error            string      `json:"error"`
+	ValidationErrors interface{} `json:"validation_errors"`
 }
 
 // GoodResponse stores valid response data
