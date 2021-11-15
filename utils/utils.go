@@ -55,6 +55,28 @@ func SuccessResponse(r *http.Request, w http.ResponseWriter, httpStatus int, mes
 
 }
 
+// SuccessResponseResults provides response for successful requests
+func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus int, totalResults int, page int, size int, data interface{}) {
+	// set headers
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(httpStatus)
+
+	var goodResponse templates.GoodResponse
+	goodResponse.Meta.TotalResults = totalResults
+	if totalResults > 0 {
+		goodResponse.Meta.TotalPages = int(totalResults / size)
+	} else {
+		goodResponse.Meta.TotalPages = 0
+	}
+	goodResponse.Meta.Page = page
+	goodResponse.Meta.PageSize = size
+	goodResponse.Data = data
+
+	// write response
+	json.NewEncoder(w).Encode(goodResponse)
+	return
+}
+
 // NoRouteFoundHandler handles cases where an undefined routes are requested
 func NoRouteFoundHandler(w http.ResponseWriter, r *http.Request) {
 	errorMessage := fmt.Sprintf("Invalid endpoint request (%v)", r.URL.Path)

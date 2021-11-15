@@ -20,4 +20,10 @@ type GoodResponse struct {
 	Status  int         `json:"status"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
+	Meta    struct {
+		TotalResults int `json:"total_results"`
+		TotalPages   int `json:"total_pages"`
+		Page         int `json:"current"`
+		PageSize     int `json:"size"`
+	} `json:"meta"`
 }
