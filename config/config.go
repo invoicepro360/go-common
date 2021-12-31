@@ -1,5 +1,7 @@
 package config
 
+import "os"
+
 const (
 	// BaseURL sets api in url path
 	BaseURL string = "/api"
@@ -30,3 +32,13 @@ var (
 	SecuritySalt string
 	// UserJwt set user information returned by jwt token validation
 )
+
+// Initialize set config defaults
+func Initialize() {
+	DBUser = os.Getenv("DB_USER")
+	DBPassword = os.Getenv("DB_PASSWORD")
+	DBHost = os.Getenv("DB_HOST")
+	DBPort = os.Getenv("DB_PORT")
+	DBName = os.Getenv("DB_NAME")
+	SecuritySalt = os.Getenv("SECURITY_SALT")
+}
