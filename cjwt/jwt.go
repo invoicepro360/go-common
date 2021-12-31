@@ -1,4 +1,4 @@
-package common_jwt
+package cjwt
 
 import (
 	"time"

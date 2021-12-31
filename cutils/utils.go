@@ -1,16 +1,16 @@
-package common_utils
+package cutils
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/invoicepro360/go-common/templates"
+	"github.com/invoicepro360/go-common/ctemplates"
 )
 
 // FailedResponse provides response for failed requests incase of errors
 func FailedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, errorMessage interface{}) {
 
-	var badResponse templates.BadResponse
+	var badResponse ctemplates.BadResponse
 	badResponse.Status = httpStatus
 	badResponse.Message = message
 
@@ -37,7 +37,7 @@ func FailedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, mess
 // SuccessResponse provides response for successful requests
 func SuccessResponse(r *http.Request, w http.ResponseWriter, httpStatus int, message string, data interface{}) {
 
-	var goodResponse templates.GoodResponse
+	var goodResponse ctemplates.GoodResponse
 	goodResponse.Status = httpStatus
 	goodResponse.Message = message
 	goodResponse.Data = data
@@ -57,7 +57,7 @@ func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus i
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(httpStatus)
 
-	var goodResponse templates.GoodResponse
+	var goodResponse ctemplates.GoodResponse
 	goodResponse.Meta.TotalResults = totalResults
 	if totalResults > 0 {
 		goodResponse.Meta.TotalPages = int(totalResults / size)

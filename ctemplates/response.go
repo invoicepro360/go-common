@@ -1,4 +1,4 @@
-package common_templates
+package ctemplates
 
 // HealthCheckItem stores health check data
 type HealthCheckItem struct {
