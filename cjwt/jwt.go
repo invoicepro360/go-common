@@ -14,6 +14,7 @@ type User struct {
 	UserId            int    `json:"id"`
 	ParentId          int    `json:"parent_id"`
 	DefaultBusinessId int    `json:"default_business_id"`
+	Role              string `json:"role"`
 }
 type Claims struct {
 	User
