@@ -20,6 +20,13 @@ type GoodResponse struct {
 	Status  int         `json:"status"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data,omitempty"`
+}
+
+// GoodResponse stores valid response data
+type GoodResponseWithPagination struct {
+	Status  int         `json:"status"`
+	Message string      `json:"message"`
+	Data    interface{} `json:"data,omitempty"`
 	Meta    struct {
 		TotalResults int `json:"total_results"`
 		TotalPages   int `json:"total_pages"`

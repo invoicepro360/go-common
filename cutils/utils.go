@@ -57,7 +57,7 @@ func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus i
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(httpStatus)
 
-	var goodResponse ctemplates.GoodResponse
+	var goodResponse ctemplates.GoodResponseWithPagination
 	goodResponse.Meta.TotalResults = totalResults
 	if totalResults > 0 {
 		goodResponse.Meta.TotalPages = int(totalResults / size)
@@ -70,5 +70,5 @@ func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus i
 
 	// write response
 	json.NewEncoder(w).Encode(goodResponse)
-	return
+
 }
