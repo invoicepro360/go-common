@@ -15,6 +15,8 @@ type User struct {
 	ParentId          int    `json:"parent_id"`
 	DefaultBusinessId int    `json:"default_business_id"`
 	Role              string `json:"role"`
+	//is multi-factor valid
+	IsMFAValid bool `json:"is_mfa_valid"`
 }
 type Claims struct {
 	User
