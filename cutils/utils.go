@@ -58,6 +58,7 @@ func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus i
 	w.WriteHeader(httpStatus)
 
 	var goodResponse ctemplates.GoodResponseWithPagination
+	goodResponse.Status = httpStatus
 	goodResponse.Meta.TotalResults = totalResults
 	if totalResults > 0 {
 		goodResponse.Meta.TotalPages = int(totalResults / size)
