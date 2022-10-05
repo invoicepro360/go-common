@@ -17,6 +17,7 @@ type User struct {
 	Role              string `json:"role"`
 	//is multi-factor valid
 	IsMFAValid bool `json:"is_mfa_valid"`
+	IsEmailVerified bool `json:"is_email_verified"`
 }
 type Claims struct {
 	User
