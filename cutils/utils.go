@@ -62,8 +62,12 @@ func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus i
 	goodResponse.Status = httpStatus
 	goodResponse.Meta.TotalResults = totalResults
 	if totalResults > 0 {
-		TotalPages := math.Ceil(float64(totalResults / size))
-		goodResponse.Meta.TotalPages = int(TotalPages)
+
+		r := float64(totalResults)
+		s := float64(size)
+
+		TotalPages := r / s
+		goodResponse.Meta.TotalPages = int(math.Ceil(TotalPages))
 	} else {
 		goodResponse.Meta.TotalPages = 0
 	}
