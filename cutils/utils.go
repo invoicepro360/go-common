@@ -2,6 +2,7 @@ package cutils
 
 import (
 	"encoding/json"
+	"math"
 	"net/http"
 
 	"github.com/invoicepro360/go-common/ctemplates"
@@ -61,7 +62,8 @@ func SuccessResponseResults(r *http.Request, w http.ResponseWriter, httpStatus i
 	goodResponse.Status = httpStatus
 	goodResponse.Meta.TotalResults = totalResults
 	if totalResults > 0 {
-		goodResponse.Meta.TotalPages = int(totalResults / size)
+		TotalPages := math.Ceil(float64(totalResults / size))
+		goodResponse.Meta.TotalPages = int(TotalPages)
 	} else {
 		goodResponse.Meta.TotalPages = 0
 	}
