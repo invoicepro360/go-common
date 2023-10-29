@@ -16,7 +16,7 @@ type User struct {
 	DefaultBusinessId int    `json:"default_business_id"`
 	Role              string `json:"role"`
 	//is multi-factor valid
-	IsMFAValid bool `json:"is_mfa_valid"`
+	IsMFAValid      bool `json:"is_mfa_valid"`
 	IsEmailVerified bool `json:"is_email_verified"`
 }
 type Claims struct {
@@ -24,7 +24,7 @@ type Claims struct {
 	jwt.StandardClaims
 }
 
-func JWTCreateToken(user User, securitySalt string) (tokenString string, err error) {
+func JWTCreateToken(user User, securitySalt string) (tokenString string, expiresAt int64, err error) {
 	defer func() {
 		if err := recover(); err != nil {
 			return
@@ -36,13 +36,13 @@ func JWTCreateToken(user User, securitySalt string) (tokenString string, err err
 	// Declare the expiration time of the token
 	// here, we have kept it as 5 minutes
 	expirationTime := time.Now().Add(60 * time.Minute)
-
+	expiresAt = expirationTime.Unix()
 	// Create the JWT claims, which includes the username and expiry time
 	claims := &Claims{
 		User: user,
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds
-			ExpiresAt: expirationTime.Unix(),
+			ExpiresAt: expiresAt,
 		},
 	}
 
@@ -81,7 +81,7 @@ func JWTValidateToken(tokenString string, securitySalt string) (user User, err e
 	return
 }
 
-func JWTRefreshToken(tokenString string, securitySalt string) (newTokenString string, err error) {
+func JWTRefreshToken(tokenString string, securitySalt string) (newTokenString string, expiresAt int64, err error) {
 	defer func() {
 		if err := recover(); err != nil {
 			return
@@ -99,14 +99,14 @@ func JWTRefreshToken(tokenString string, securitySalt string) (newTokenString st
 	if claims, ok := token.Claims.(*Claims); !ok || !token.Valid {
 		// token is not valid. It may have expired
 		// refresh only works on valid token
-		log.Errorf("Failed to validate jwk token: %s", err.Error())
+		log.Errorf("Failed to validate jwt token: %s", err.Error())
 		return
 	} else {
 		user = claims.User
 	}
 
 	// create new token
-	newTokenString, err = JWTCreateToken(user, securitySalt)
+	newTokenString, expiresAt, err = JWTCreateToken(user, securitySalt)
 	if err != nil {
 		log.Errorf("Failed to create new token during refresh jwk token: %s", err.Error())
 		return
