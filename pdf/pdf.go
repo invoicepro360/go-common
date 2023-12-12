@@ -3,7 +3,6 @@ package pdf
 import (
 	"bytes"
 	"encoding/base64"
-	"fmt"
 	"html/template"
 	"strings"
 
