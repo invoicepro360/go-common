@@ -31,6 +31,7 @@ import (
 
 //GeneratePDF return base64 pdf string,error
 func GeneratePDF(uid string) (pdfBase64 string, err error) {
+	config.Initialize()
 
 	pdfData, err := model.InvoiceDetailModel(uid)
 	if err != nil {
