@@ -2,8 +2,10 @@ package cutils
 
 import (
 	"encoding/json"
+	"fmt"
 	"math"
 	"net/http"
+	"runtime"
 
 	"github.com/invoicepro360/go-common/ctemplates"
 )
@@ -33,6 +35,12 @@ func FailedResponse(r *http.Request, w http.ResponseWriter, httpStatus int, mess
 	// write response
 	json.NewEncoder(w).Encode(badResponse)
 
+}
+
+// GetCurrentFuncName returns the current function name
+func GetCurrentFuncName() string {
+	pc, _, _, _ := runtime.Caller(1)
+	return fmt.Sprintf("%s", runtime.FuncForPC(pc).Name())
 }
 
 // SuccessResponse provides response for successful requests
