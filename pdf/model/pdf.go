@@ -33,7 +33,17 @@ func InvoiceDetailModel(uuid string) (pdfdata templates.Pdfdata, err error) {
 			"lastName",c.last_name,
 			"email",c.email_address,
 			"mobileNumber",c.mobile_number,
-			"phoneNumber",c.phone_number
+			"phoneNumber",c.phone_number,
+			"billingAddressLine1",c.billing_address_line1,
+			"billingAddressLine2",c.billing_address_line2,
+			"billingCity",c.billing_city,
+			"billingState",c.billing_state,
+			"billingZipcode",c.billing_zipcode,
+			"shippingAddressLine1",c.shipping_address_line1,
+			"shippingAddressLine2",c.shipping_address_line2,
+			"shippingCity",c.shipping_city,
+			"shippingState",c.shipping_state,
+			"shippingZipcode",c.shipping_zipcode
 			) as customer`,
 		`JSON_OBJECT(
 			"companyName",b.name,
@@ -104,7 +114,7 @@ func InvoiceDetailModel(uuid string) (pdfdata templates.Pdfdata, err error) {
 	invoiceDate, err := time.Parse("2006-01-02", invoice.InvoiceDate)
 
 	if err == nil {
-		invoice.InvoiceDate = invoiceDate.Format(config.DateFormat[invoice.InvoiceDate])
+		invoice.InvoiceDate = invoiceDate.Format(config.DateFormat[settings.DateFormat])
 	} else {
 		log.Error(err.Error())
 	}
@@ -112,7 +122,7 @@ func InvoiceDetailModel(uuid string) (pdfdata templates.Pdfdata, err error) {
 	paymentDueDate, err := time.Parse("2006-01-02", invoice.PaymentDueDate)
 
 	if err == nil {
-		invoice.PaymentDueDate = paymentDueDate.Format(config.DateFormat[invoice.InvoiceDate])
+		invoice.PaymentDueDate = paymentDueDate.Format(config.DateFormat[settings.DateFormat])
 	} else {
 		log.Error(err.Error())
 	}

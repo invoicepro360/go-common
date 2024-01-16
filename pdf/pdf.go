@@ -1,8 +1,9 @@
-package pdf
+package main
 
 import (
 	"bytes"
 	"encoding/base64"
+	"fmt"
 	"html/template"
 	"strings"
 
@@ -12,22 +13,22 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-// func main() {
+func main() {
 
-// 	// init config
-// 	config.Initialize()
+	// init config
+	config.Initialize()
 
-// 	uid := "44C1-6CB0"
+	uid := "44C1-6CB0"
 
-// 	base64Pdf, err := GeneratePDF(uid)
+	base64Pdf, err := GeneratePDF(uid)
 
-// 	if err != nil {
-// 		fmt.Println("Failed to generate pdf", err.Error())
-// 		return
-// 	}
-// 	fmt.Println("PDF Generated Successfully", base64Pdf)
+	if err != nil {
+		fmt.Println("Failed to generate pdf", err.Error())
+		return
+	}
+	fmt.Println("PDF Generated Successfully", base64Pdf)
 
-// }
+}
 
 //GeneratePDF return base64 pdf string,error
 func GeneratePDF(uid string) (pdfBase64 string, err error) {
@@ -43,7 +44,7 @@ func GeneratePDF(uid string) (pdfBase64 string, err error) {
 	// return "", err
 
 	//html template path
-	templatePath := config.PdfInvoiceTemplates + pdfData.Setting.InvoiceTemplate + ".html"
+	templatePath := config.PdfInvoiceTemplates  + "professional.html"
 
 	t, err := template.ParseFiles(templatePath)
 
