@@ -57,12 +57,12 @@ type Setting struct {
 }
 
 type Payment struct {
-	ID            int    `json:"id" db:"id"`
-	PaymentDate   string `json:"paymentDate" db:"payment_date"`
-	PaymentMethod string `json:"paymentMethod" db:"payment_method"`
-	Memo          string `json:"memo" db:"memo"`
-	Amount        amount `json:"amount" db:"amount"`
-	Created       string `json:"created" db:"created"`
+	ID            int        `json:"id" db:"id"`
+	PaymentDate   string     `json:"paymentDate" db:"payment_date"`
+	PaymentMethod string     `json:"paymentMethod" db:"payment_method"`
+	Memo          NullString `json:"memo" db:"memo"`
+	Amount        amount     `json:"amount" db:"amount"`
+	Created       string     `json:"created" db:"created"`
 }
 
 type Pdfdata struct {

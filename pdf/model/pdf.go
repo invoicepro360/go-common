@@ -111,21 +111,19 @@ func InvoiceDetailModel(uuid string) (pdfdata templates.Pdfdata, err error) {
 	// close db connection
 	defer db.Close()
 
-	invoiceDate, err := time.Parse("2006-01-02", invoice.InvoiceDate)
+	var invoiceDate time.Time
+	var paymentDueDate time.Time
 
-	if err == nil {
-		invoice.InvoiceDate = invoiceDate.Format(config.DateFormat[settings.DateFormat])
-	} else {
+	if invoiceDate, err = time.Parse("2006-01-02", invoice.InvoiceDate); err != nil {
 		log.Error(err.Error())
 	}
 
-	paymentDueDate, err := time.Parse("2006-01-02", invoice.PaymentDueDate)
-
-	if err == nil {
-		invoice.PaymentDueDate = paymentDueDate.Format(config.DateFormat[settings.DateFormat])
-	} else {
+	if paymentDueDate, err = time.Parse("2006-01-02", invoice.PaymentDueDate); err != nil {
 		log.Error(err.Error())
 	}
+
+	invoice.InvoiceDate = invoiceDate.Format(config.DateFormat[settings.DateFormat])
+	invoice.PaymentDueDate = paymentDueDate.Format(config.DateFormat[settings.DateFormat])
 
 	pdfdata.Invoice = invoice
 	pdfdata.Items = invoiceItems
@@ -244,7 +242,8 @@ func GetPayments(invoiceId string, businessId int, DateFmt string, db *sqlx.DB) 
 			log.Error(err.Error())
 		}
 
-		PaymentDate, err := time.Parse("2006-01-02 00:00:00", payment.PaymentDate)
+		PaymentDate, err := time.Parse("2006-01-02 15:04:05", payment.PaymentDate)
+
 
 		if err == nil {
 			payment.PaymentDate = PaymentDate.Format(config.DateFormat[DateFmt])
