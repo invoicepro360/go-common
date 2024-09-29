@@ -5,8 +5,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/invoicepro360/go-common/pdf/config"
-	"github.com/invoicepro360/go-common/pdf/templates"
+	"github.com/invoicepro360/go-common/config"
+	"github.com/invoicepro360/go-common/templates"
 
 	"github.com/jmoiron/sqlx"
 	log "github.com/sirupsen/logrus"
@@ -243,7 +243,6 @@ func GetPayments(invoiceId string, businessId int, DateFmt string, db *sqlx.DB) 
 		}
 
 		PaymentDate, err := time.Parse("2006-01-02 15:04:05", payment.PaymentDate)
-
 
 		if err == nil {
 			payment.PaymentDate = PaymentDate.Format(config.DateFormat[DateFmt])

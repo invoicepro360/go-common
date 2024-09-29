@@ -7,8 +7,8 @@ import (
 	"strings"
 
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
-	"github.com/invoicepro360/go-common/pdf/config"
-	"github.com/invoicepro360/go-common/pdf/model"
+	"github.com/invoicepro360/go-common/config"
+	"github.com/invoicepro360/go-common/model"
 	log "github.com/sirupsen/logrus"
 )
 

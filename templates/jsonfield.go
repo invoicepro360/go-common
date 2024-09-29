@@ -9,10 +9,9 @@ import (
 )
 
 type SalesTaxField []SalesTax
+type CustomerField map[string]interface{}
 type JsonField map[string]interface{}
 
-// type BusinessDetail map[string]interface{}
-// type InvoiceColumnField map[string]interface{}
 type amount sql.NullFloat64
 
 func (s *SalesTaxField) Value() (driver.Value, error) {
