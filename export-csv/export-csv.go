@@ -1,6 +1,6 @@
-// package exportcsv
+package exportcsv
 
-package main
+// package main
 
 import (
 	"bytes"
