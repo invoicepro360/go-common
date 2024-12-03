@@ -25,9 +25,9 @@ var (
 	PdfInvoiceTemplates string
 
 	DateFormat = map[string]string{
-		"MM/DD/YYYY":   "1/2/2006",
-		"DD/MM/YYYY":   "1/2/2006",
-		"YYYY/MM/DD":   "2006/2/1",
+		"MM/DD/YYYY":   "01/02/2006",
+		"DD/MM/YYYY":   "02/01/2006",
+		"YYYY/MM/DD":   "2006/01/02",
 		"MMMM D, YYYY": "January 2, 2006",
 	}
 )

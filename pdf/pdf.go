@@ -29,7 +29,7 @@ import (
 
 // }
 
-//GeneratePDF return base64 pdf string,error
+// GeneratePDF return base64 pdf string,error
 func GeneratePDF(uid string) (pdfBase64 string, err error) {
 	config.Initialize()
 
