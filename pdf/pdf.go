@@ -3,6 +3,8 @@ package pdf
 import (
 	"bytes"
 	"encoding/base64"
+	"encoding/json"
+	"fmt"
 	"html/template"
 	"strings"
 
@@ -17,7 +19,7 @@ import (
 // 	// init config
 // 	config.Initialize()
 
-// 	uid := "44C1-6CB0"
+// 	uid := "CA9E-52D8"
 
 // 	base64Pdf, err := GeneratePDF(uid)
 
@@ -38,9 +40,8 @@ func GeneratePDF(uid string) (pdfBase64 string, err error) {
 		log.Errorf("Failed to fetch invoice detail: %s", err.Error())
 	}
 
-	// ip, _ := json.Marshal(pdfData)
-	// fmt.Println(string(ip))
-	// return "", err
+	ip, _ := json.Marshal(pdfData)
+	fmt.Println(string(ip))
 
 	//html template path
 	templatePath := config.PdfInvoiceTemplates + pdfData.Setting.InvoiceTemplate + ".html"
